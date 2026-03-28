@@ -19,20 +19,11 @@ def reader_thread():
 threading.Thread(target=reader_thread, daemon=True).start()
 
 app = Flask(__name__)
-@app.route("/", methods=["GET"])
+@app.route("/", methods=["GET", "POST"])
 def index():
     return "<p>Hello, World!</p>"
 
 
-@app.route("/read", methods=["POST"])
-def read_route():
-    data = request.json
-    if data is None:
-        return json.jsonify({"error": "Invalid or missing JSON"}), 400
-    if not os.path.isfile(data["file"]):
-        return json.jsonify({"error": "Not a vaild file path"}), 400
-    
-    file_queue.put(data["file"])
 
 
 
