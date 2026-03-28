@@ -1,4 +1,22 @@
-from flask import Flask
+from flask import Flask, request
+import json
+import reader
+import os
+import queue
+import threading
+
+file_queue = queue.Queue()
+# read = reader.Reader()
+
+def reader_thread():
+    while True:
+        item = file_queue.get(block=True)
+        print("New file is being read")
+        # readed = read.read(item)
+        # print(readed)
+        file_queue.task_done()
+
+threading.Thread(target=reader_thread, daemon=True).start()
 
 app = Flask(__name__)
 @app.route("/", methods=["GET"])
@@ -8,7 +26,13 @@ def hello_world():
 
 @app.route("/read", methods=["POST"])
 def hello_world():
-    return "<p>Hello, World!</p>"
+    data = request.json
+    if data is None:
+        return json.jsonify({"error": "Invalid or missing JSON"}), 400
+    if not os.path.isfile(data["file"]):
+        return json.jsonify({"error": "Not a vaild file path"}), 400
+    
+    file_queue.put(data["file"])
 
 
 
