@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, jsonify
 from werkzeug.utils import secure_filename
 import json
 import reader
@@ -6,7 +6,7 @@ import os, shutil
 import queue
 import threading
 
-UPLOAD_FOLDER = '/uploads'
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
 ALLOWED_EXTENSIONS = {'pdf'}
 
 
@@ -45,16 +45,17 @@ def index():
         return send_file("static/index.html")
     elif request.method == "POST":
         if 'file' not in request.files:
-            return json.jsonify({"error": "Missing file"}), 400
+            return jsonify({"error": "Missing file"}), 400
         file = request.files['file']
         if file.filename == '':
-            return json.jsonify({"error": "No selected file"}), 400
+            return jsonify({"error": "No selected file"}), 400
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            print(f"file saved to {path}")
             file.save(path)
             file_queue.put(path)
-            return json.jsonify({"error": "No selected file"}), 400
+            return jsonify({"success": "File saved"}), 400
 
 if __name__ == '__main__':
     app.run(port=80)
