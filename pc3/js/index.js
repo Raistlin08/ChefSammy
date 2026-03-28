@@ -1,4 +1,4 @@
-const llm = "http://localhost:8080/chat"
+const llm = "/chat"
 
 async function send(){
     let chatdiv = document.getElementById("chatdiv");
