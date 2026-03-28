@@ -32,4 +32,4 @@ def add_chunck():
     chunks_queue.put(data["chunk"])
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=8080)
