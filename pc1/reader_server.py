@@ -20,12 +20,12 @@ threading.Thread(target=reader_thread, daemon=True).start()
 
 app = Flask(__name__)
 @app.route("/", methods=["GET"])
-def hello_world():
+def index():
     return "<p>Hello, World!</p>"
 
 
 @app.route("/read", methods=["POST"])
-def hello_world():
+def read_route():
     data = request.json
     if data is None:
         return json.jsonify({"error": "Invalid or missing JSON"}), 400
