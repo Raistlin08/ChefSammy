@@ -1,7 +1,12 @@
 from flask import Flask
 
 app = Flask(__name__)
-@app.route("/")
+@app.route("/", methods=["GET"])
+def hello_world():
+    return "<p>Hello, World!</p>"
+
+
+@app.route("/read", methods=["POST"])
 def hello_world():
     return "<p>Hello, World!</p>"
 
