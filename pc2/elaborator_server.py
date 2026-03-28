@@ -13,8 +13,8 @@ def elaborator_thread():
     while True:
         item = chunks_queue.get(block=True)
         print("New chunks is being analyzed")
-        # analized = elab.analize(item)
-        # print(analized)
+        # analyzed = elab.analyze(item)
+        # print(analyzed)
         chunks_queue.task_done()
         
         
@@ -30,6 +30,7 @@ def add_chunck():
     if data is None:
         return json.jsonify({"error": "Invalid or missing JSON"}), 400
     chunks_queue.put(data["chunk"])
+    return json.jsonify({"success": "chunk saved"}), 200
 
 if __name__ == '__main__':
     app.run(port=8080)
