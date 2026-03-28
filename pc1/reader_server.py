@@ -55,7 +55,7 @@ def index():
             print(f"file saved to {path}")
             file.save(path)
             file_queue.put(path)
-            return jsonify({"success": "File saved"}), 400
+            return jsonify({"success": "File saved"}), 200
 
 if __name__ == '__main__':
     app.run(port=8080)
