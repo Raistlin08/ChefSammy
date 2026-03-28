@@ -45,17 +45,17 @@ main {
     margin-left: auto;     
     background-color: #d3ee25;
     padding: 10px;
-    border-radius: 15px 15px 15px 15px;
+    border-radius: 15px 15px 0 15px;
     max-width: 60%;
     word-wrap: break-word;
 }
 
 
-.bot-response {
-    margin-left: auto;     
+.ai-message {
+    margin-right: auto;     
     background-color: #f0f0f0;
     padding: 10px;
-    border-radius: 15px 15px 0 15px; 
+    border-radius: 15px 15px 15px 0; 
     max-width: 60%;
     word-wrap: break-word;
 }
